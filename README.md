@@ -2,7 +2,7 @@
 
 ## Installation
 
-`go install github.com/flaccid/httpstaticd/cmd/httpstaticd`
+`go get github.com/flaccid/httpstaticd/cmd/httpstaticd`
 
 ## Usage
 
