@@ -13,6 +13,9 @@ WORKING_DIR := $(shell pwd)
 run:: ## runs the main program with go
 		@go run cmd/httpstaticd/httpstaticd.go
 
+build:: ## builds the main program with go
+		@go build -o bin/httpstaticd cmd/httpstaticd/httpstaticd.go 
+
 docker-build:: ## builds the docker image locally
 		@docker build --pull \
 		-t $(IMAGE_TAG) $(WORKING_DIR)
