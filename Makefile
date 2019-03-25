@@ -10,6 +10,9 @@ WORKING_DIR := $(shell pwd)
 
 .PHONY: docker-release
 
+run:: ## runs the main program with go
+		@go run cmd/httpstaticd/httpstaticd.go
+
 docker-build:: ## builds the docker image locally
 		@docker build --pull \
 		-t $(IMAGE_TAG) $(WORKING_DIR)
