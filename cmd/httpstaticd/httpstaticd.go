@@ -43,6 +43,11 @@ func main() {
 			Usage: "port the listen on",
 			Value: 8080,
 		},
+		// todo: always on, need to implement
+		cli.BoolFlag{
+			Name:  "access-log,a",
+			Usage: "enable access logging of requests",
+		},
 		cli.BoolFlag{
 			Name:  "debug,D",
 			Usage: "run in debug mode",
@@ -52,7 +57,7 @@ func main() {
 }
 
 func start(c *cli.Context) error {
-	httpstaticd.Serve(c.String("directory"), c.Int("port"), c.Bool("listings"))
+	httpstaticd.Serve(c.String("directory"), c.Int("port"), c.Bool("listings"), c.Bool("access-log"))
 
 	return nil
 }
