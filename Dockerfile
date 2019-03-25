@@ -1,9 +1,10 @@
 FROM golang as builder
-COPY . /usr/src/httpstaticd
-WORKDIR /usr/src/httpstaticd
+COPY . /go/src/github.com/flaccid/httpstaticd
+WORKDIR /go/src/github.com/flaccid/httpstaticd
 RUN go get ./... && \
-    CGO_ENABLED=0 GOOS=linux go build -o httpstaticd cmd/httpstaticd.go
+    CGO_ENABLED=0 GOOS=linux go build -o httpstaticd cmd/httpstaticd/httpstaticd.go
 
 FROM scratch
-COPY --from=builder /usr/src/httpstaticd/httpstaticd /usr/local/bin/httpstaticd
-CMD ["/usr/local/bin/httpstaticd"]
+COPY --from=builder /go/src/github.com/flaccid/httpstaticd/httpstaticd /httpstaticd
+WORKDIR /
+ENTRYPOINT ["./httpstaticd"]
