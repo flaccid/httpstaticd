@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/gorilla/handlers"
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 var (

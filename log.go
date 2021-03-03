@@ -3,7 +3,7 @@ package httpstaticd
 import (
 	"net/http"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 func logRequest(r *http.Request) {

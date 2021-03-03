@@ -6,7 +6,7 @@ import (
 	"github.com/flaccid/httpstaticd"
 	"github.com/urfave/cli"
 
-	log "github.com/Sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 var (

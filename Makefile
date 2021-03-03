@@ -10,11 +10,14 @@ WORKING_DIR := $(shell pwd)
 
 .PHONY: docker-release
 
+deps:: ## installs go deps recursively
+		@cd cmd/httpstaticd && go get ./...
+
 run:: ## runs the main program with go
 		@go run cmd/httpstaticd/httpstaticd.go
 
 build:: ## builds the main program with go
-		@go build -o bin/httpstaticd cmd/httpstaticd/httpstaticd.go 
+		@go build -o bin/httpstaticd cmd/httpstaticd/httpstaticd.go
 
 docker-build:: ## builds the docker image locally
 		@docker build --pull \
