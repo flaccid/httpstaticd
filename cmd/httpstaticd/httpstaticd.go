@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/flaccid/httpstaticd"
@@ -10,6 +11,8 @@ import (
 )
 
 func beforeApp(c *cli.Context) error {
+	fmt.Printf("httpstaticd %s\n", httpstaticd.VERSION)
+
 	switch c.GlobalString("log-level") {
 	case "debug":
 		log.SetLevel(log.DebugLevel)
