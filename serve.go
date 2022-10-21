@@ -17,11 +17,6 @@ var (
 
 func Serve(directory string, listings bool, listenPort int, enableCors bool, accessLog bool) {
 	log.Info("initialize httpstaticd")
-
-	if enableCors {
-		log.Info("cors support enabled")
-	}
-
 	log.WithFields(log.Fields{
 		"dir":  directory,
 		"port": listenPort,
@@ -39,6 +34,7 @@ func Serve(directory string, listings bool, listenPort int, enableCors bool, acc
 		mux.Handle("/", http.StripPrefix("/", handlers.LoggingHandler(os.Stdout, fileServer)))
 		mux.HandleFunc("/health", healthCheckHandler)
 		if enableCors {
+			log.Info("cors support enabled")
 			handler = cors.Default().Handler(mux)
 		} else {
 			handler = mux
