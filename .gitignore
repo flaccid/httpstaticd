@@ -13,3 +13,7 @@
 
 # go build
 /bin/
+
+# potential local test files
+index.html
+foo/
