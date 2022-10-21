@@ -13,8 +13,11 @@ WORKING_DIR := $(shell pwd)
 deps:: ## installs go deps recursively
 		@cd cmd/httpstaticd && go get ./...
 
+update-modules:: ## updates the go modules
+		@go mod tidy
+
 run:: ## runs the main program with go
-		@go run cmd/httpstaticd/httpstaticd.go
+		@go run cmd/httpstaticd/httpstaticd.go $(ARGS)
 
 build:: ## builds the main program with go
 		@go build -o bin/httpstaticd cmd/httpstaticd/httpstaticd.go
@@ -41,7 +44,7 @@ Available targets:
 endef
 export HELP_TEXT
 help: ## this help target
-	@echo httpsr
+	@cat .banner
 	@echo
 	@echo "$$HELP_TEXT"
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / \
