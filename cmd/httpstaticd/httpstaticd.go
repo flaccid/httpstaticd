@@ -56,14 +56,16 @@ func main() {
 			Name:  "cors,c",
 			Usage: "enable cors (not supported with directory listings)",
 		},
-		cli.BoolFlag{
-			Name:  "access-log,a",
-			Usage: "enable access logging of requests",
-		},
-		cli.BoolFlag{
-			Name: "no-log-healthz",
-			Usage: "do not log health check requests",
-		},
+		// TODO: implement
+		// cli.BoolFlag{
+		// 	Name:  "access-log,a",
+		// 	Usage: "enable access logging of requests",
+		// },
+		// TODO: implement
+		// cli.BoolFlag{
+		// 	Name: "no-log-healthz",
+		// 	Usage: "do not log health check requests",
+		// },
 		cli.StringFlag{
 			Name:  "log-level,l",
 			Usage: "log level to use (debug,warn,error,info); default: info",
