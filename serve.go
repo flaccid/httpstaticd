@@ -6,19 +6,21 @@ import (
 	"os"
 
 	"github.com/gorilla/handlers"
+	"github.com/rs/cors"
 	log "github.com/sirupsen/logrus"
 )
 
 var (
-	code int = http.StatusTemporaryRedirect
+	code    int = http.StatusTemporaryRedirect
+	handler http.Handler
 )
 
-func Serve(directory string, listenPort int, listings bool, accessLog bool) {
+func Serve(directory string, listings bool, listenPort int, enableCors bool, accessLog bool) {
 	log.Info("initialize httpstaticd")
-	log.Debug("debug logging enabled")
 
-	http.HandleFunc("/health", healthCheckHandler)
-	http.HandleFunc("/health/", healthCheckHandler)
+	if enableCors {
+		log.Info("cors support enabled")
+	}
 
 	log.WithFields(log.Fields{
 		"dir":  directory,
@@ -26,19 +28,24 @@ func Serve(directory string, listenPort int, listings bool, accessLog bool) {
 	}).Info("listening for requests")
 
 	if listings {
+		// TODO: support dir listing when index file exists
 		log.Info("directory listings enabled")
 		http.Handle("/", handlers.LoggingHandler(os.Stdout, http.FileServer(http.Dir(directory))))
-
-		if err := http.ListenAndServe(":"+fmt.Sprintf("%v", listenPort), nil); err != nil {
-			log.Fatalf("fatality: %v", err)
-		}
+		http.HandleFunc("/health", healthCheckHandler)
+		handler = nil
 	} else {
-		mux := http.NewServeMux()
 		fileServer := http.FileServer(neuteredFileSystem{http.Dir(directory)})
+		mux := http.NewServeMux()
 		mux.Handle("/", http.StripPrefix("/", handlers.LoggingHandler(os.Stdout, fileServer)))
-
-		if err := http.ListenAndServe(":"+fmt.Sprintf("%v", listenPort), mux); err != nil {
-			log.Fatalf("fatality: %v", err)
+		mux.HandleFunc("/health", healthCheckHandler)
+		if enableCors {
+			handler = cors.Default().Handler(mux)
+		} else {
+			handler = mux
 		}
+	}
+
+	if err := http.ListenAndServe(":"+fmt.Sprintf("%v", listenPort), handler); err != nil {
+		log.Fatalf("fatality: %v", err)
 	}
 }
