@@ -1,3 +1,5 @@
+// NOTE: not yet used/implemented
+
 package httpstaticd
 
 import (
@@ -7,7 +9,6 @@ import (
 )
 
 func logRequest(r *http.Request) {
-	// we only log in debug mode due to possible exposure of PI data in request uri
 	log.WithFields(log.Fields{
 		"method": r.Method,
 	}).Debug(r.URL.String())
