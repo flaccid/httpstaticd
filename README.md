@@ -2,7 +2,7 @@
 
 ## Installation
 
-`go get github.com/flaccid/httpstaticd/cmd/httpstaticd`
+`go install github.com/flaccid/httpstaticd/cmd/httpstaticd@latest`
 
 ## Usage
 
@@ -13,7 +13,7 @@
 - Author: Chris Fordham (<chris@fordham.id.au>)
 
 ```text
-Copyright 2019, Chris Fordham
+Copyright 2019-2025, Chris Fordham
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
